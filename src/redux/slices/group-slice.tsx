@@ -3,7 +3,6 @@ import api from '../../api/base';
 import { apiv1 } from '../../api/paths';
 
 export interface GroupFilters {
-  companyId?: string | null,
   pageNo: number | 0;
   pageSize: number | 10;
   filter?: string | null;
@@ -35,12 +34,12 @@ export interface EditGroupProps {
 
 export const getAllGroups = createAsyncThunk(
   'groups/all',
-  async (params: GroupFilters, { rejectWithValue }) => {
+  async (params: any, { rejectWithValue }) => {
     try {
       const response = await api.get(apiv1 + 'target-group/companies/' + params.companyId, {
         params: {
-          ...params,
-          pageNo: params.pageNo + 1,
+          ...params.params,
+          pageNo: params.params.pageNo + 1,
         }
       });
       const data = await response.data;

@@ -45,7 +45,7 @@ export const MobileMenu = ({ children, open, setOpen }: MobileMenuProps) => {
         <img onClick={() => navigate('/objave')} src={logo2} alt='logo2'/>
           <IconButton sx={{ alignSelf: 'flex-end' }} onClick={() => setOpen(!open)}><CloseIcon /></IconButton>
         </DrawerHeader>
-        <Box sx={{width:'100%', height:'100%', backgroundColor: '#36cb83', color:'white', display: 'flex' , flexDirection:'column', padding:'30px 20px 0px 20px'}}>
+        <Box sx={{width:'100%', height:'100%', backgroundColor: '#36cb83', color:'white', display: 'flex' , flexDirection:'column', padding:'13px 25px 36px 40px'}}>
         {children}
         </Box>
 

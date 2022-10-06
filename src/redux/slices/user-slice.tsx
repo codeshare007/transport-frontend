@@ -71,16 +71,16 @@ export const userNotifications = createAsyncThunk(
   'user/notifications',
   async (reqData: Pagination, { getState, rejectWithValue }) => {
     try {
-        const response = await api.get(notifications, {
-          params: {
-            pageNo: 1,
-            pageSize: 10,
-            filter: 'ALL',
-          },
-        });
-        const data = await response.data;
-        return data;
-      
+      const response = await api.get(notifications, {
+        params: {
+          pageNo: 1,
+          pageSize: 10,
+          filter: 'ALL',
+        },
+      });
+      const data = await response.data;
+      return data;
+
     } catch (error: any) {
       return rejectWithValue({ error: error.message });
     }
@@ -89,7 +89,10 @@ export const userNotifications = createAsyncThunk(
 
 
 const initialState: LoginState | null = {
-  notifications: null,
+  notifications: {
+    content: [],
+    totalElements: 0
+  },
   tokens: {
     token: null,
     refreshToken: null,

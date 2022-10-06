@@ -7,56 +7,50 @@ import { IconButton, TableContainer, TableBody, TableHead, TableRow, Table } fro
 import { ReactComponent as EditIcon } from './icons/edit-icon.svg';
 import { ReactComponent as DeleteIcon } from './icons/delete-icon.svg';
 import { ReactComponent as UpRightArrow } from './icons/up-right-arrow.svg';
-import { GlobalSort } from '../../components/GlobalSort';
 import { StyledTableCell, StyledTableBodyCell } from './GroupStyled';
-import { getGroup, removeGroup } from "../../redux/slices/group-slice";
+import { getGroup, removeGroup, getAllGroups } from "../../redux/slices/group-slice";
 
 export const GroupsContent = (props: any) => {
-  const { sort, setSort, setEditGroup, setGroupOpen, setSelectedGroupData, setCompanyDrawerData } = props;
+  const { sort, setSort, setEditGroup, setGroupOpen, setSelectedGroupData } = props;
   const matches = useMediaQuery("(max-width:767px)");
   const dispatch = useAppDispatch();
   const totalElements = useSelector((store: RootState) => store?.groups?.totalElements);
   const groups = useSelector((store: RootState) => store?.groups?.content);
+ useEffect(() => {
+console.log(groups)
+ }, [groups])
 
   return (
-    <Box sx={{ padding: '0px 15px 20px 15px', bgcolor: '#fafafa', width: { xs: '100%', md: 'auto' } }}>
+    <Box sx={{ padding: '0px 15px 20px 15px', bgcolor: '#fafafa', width: { xs: '100%', md: '100%' } }}>
       {
         groups?.length > 0 && matches
           ?
           (
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
               {groups?.map((row: any, index: number) => (
-                <Box onClick={() => { setSelectedGroupData(row) }}>
-                  <Box sx={{ display: 'flex', padding: '10px 0', flexDirection: 'row', justifyContent: 'flex-start' }}>
-                    <Typography sx={{ width: '70px', textTransform: 'uppercase' }}>broj:</Typography>
-                    <Box sx={{ maxWidth: '200px', pl: '40px', fontWeight: 'bold' }}>{index}</Box>
+                <Box key={row?.id} onClick={() => { setSelectedGroupData(row) }}>
+                  <Box sx={{ display: 'flex', padding: '10px 0', flexDirection: 'row' }}>
+                    <Typography sx={{ width: '47%', textTransform: 'uppercase' }}>ime grupe:</Typography>
+                    <Box sx={{ maxWidth: '200px',fontWeight: 'bold' }}>{row?.name}</Box>
                   </Box>
                   <Divider />
                   <Box sx={{ display: 'flex', padding: '10px 0', flexDirection: 'row' }}>
-                    <Typography sx={{ width: '70px', textTransform: 'uppercase' }}>ime grupe:</Typography>
-                    <Box sx={{ maxWidth: '200px', pl: '40px', fontWeight: 'bold' }}>{row?.name}</Box>
+                    <Typography sx={{ width: '47%', textTransform: 'uppercase' }}>Opis:</Typography>
+                    <Box sx={{ maxWidth: '200px', height: '100px',fontWeight: 'bold', overflowWrap: 'anywhere' }}>{row?.description}</Box>
                   </Box>
                   <Divider />
-                  <Box sx={{ display: 'flex', padding: '10px 0', flexDirection: 'row' }}>
-                    <Typography sx={{ width: '70px', textTransform: 'uppercase' }}>Opis:</Typography>
-                    <Box sx={{ maxWidth: '200px', pl: '40px', fontWeight: 'bold' }}>{row?.description}</Box>
-                  </Box>
-                  <Divider />
-                  <Box sx={{ display: 'flex', padding: '10px 0', flexDirection: 'row', justifyContent: 'flex-start' }}>
-                    <Typography sx={{ width: '70px', textTransform: 'uppercase' }}>akcije:</Typography>
-                    <Box sx={{ pl: '40px', fontWeight: 'bold' }}>
+                  <Box sx={{ display: 'flex', padding: '0px 80px', flexDirection: 'row', justifyContent: 'space-between' }}>
                       <IconButton onClick={() => { setEditGroup(row) }}>
                         <EditIcon />
                       </IconButton>
                       <IconButton onClick={() => dispatch(removeGroup(row.id))}>
                         <DeleteIcon />
                       </IconButton>
-                      <IconButton onClick={() => { setSelectedGroupData(row) }}>
+                      <IconButton onClick={() => { dispatch(getGroup(row.id)); setGroupOpen(true); }}>
                         <UpRightArrow />
                       </IconButton>
-                    </Box>
                   </Box>
-                  <Divider sx={{ height: '3px', backgroundColor: '#36CB83' }} />
+                  <Divider sx={{ height: '2px', backgroundColor: '#36CB83' }} />
                 </Box>
               ))}
             </Box>
@@ -122,7 +116,7 @@ export const GroupsContent = (props: any) => {
                             </Box>
                           </Box>
                         </StyledTableBodyCell>
-                        <StyledTableBodyCell>
+                        <StyledTableBodyCell sx={{overflowWrap: 'anywhere'}}>
                           {row?.description}
                         </StyledTableBodyCell>
                         <StyledTableBodyCell align='center' width='10%'>
@@ -152,14 +146,6 @@ export const GroupsContent = (props: any) => {
               </Box>
             )
       }
-      <GlobalSort
-        rowsPerPageOptions={[10, 15, 20]}
-        count={totalElements ? totalElements : 0}
-        page={sort.pageNo}
-        rowsPerPage={sort.pageSize}
-        setPage={(page: number) => setSort({ ...sort, pageNo: page })}
-        setRowsPerPage={(rowsPerPage: number) => setSort({ ...sort, pageSize: rowsPerPage })}
-      />
     </Box>
   );
 };

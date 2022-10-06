@@ -29,7 +29,7 @@ export const RightDrawer = ({ children, open, setOpen }: RightDrawerProps) => {
       >
         {matches ? (
           <Box
-            sx={{ width: '100%', margin: "auto", display: 'flex', borderBottom: '1px solid #E0E0E0', justifyContent: 'space-between', alignItems: 'center' }}
+            sx={{ width: '100%', margin: "0", display: 'flex', borderBottom: '1px solid #E0E0E0', justifyContent: 'space-between', alignItems: 'center' }}
             pb={2}
           >
             <img src={logo2} alt={"prevezi"} />{" "}

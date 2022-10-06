@@ -13,6 +13,17 @@ import NotificationPopup from "../common/Popover";
 import { ReactComponent as SearchIcon } from "./icons/search-icon.svg";
 import { ReactComponent as BellIcon } from "./icons/bell-icon.svg";
 import { ReactComponent as BellActiveIcon } from "./icons/bell-active-icon.svg";
+import { ReactComponent as ArrowDownIcon } from './icons/arrow-down.svg';
+import { ReactComponent as NoteIcon } from "./icons/note-icon.svg";
+import { ReactComponent as CompanyIcon } from "./icons/company-icon.svg";
+import { ReactComponent as InboxIcon } from "./icons/inbox-icon.svg";
+import { ReactComponent as HandIcon } from "./icons/hand-icon.svg";
+import { ReactComponent as VehicleIcon } from "./icons/vehicle-icon.svg";
+import { ReactComponent as PeopleIcon } from "./icons/people-icon.svg";
+import { ReactComponent as UserIcon } from "./icons/user-icon.svg";
+import { ReactComponent as CategoryIcon } from "./icons/category-icon.svg";
+import { ReactComponent as PriceIcon } from "./icons/price-icon.svg";
+import { ReactComponent as CarIcon } from "./icons/car-icon.svg";
 import {
   HeaderContainer,
   Notifications,
@@ -25,19 +36,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { MobileMenu } from "../common/MobileMenu";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
-import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
-import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import logo2 from "./prevezi2.png";
 import { useAppDispatch } from "../../redux/store";
 import { logoutUser } from "../../redux/slices/user-slice";
-import AddIcon from '@mui/icons-material/Add';
-import { read } from "fs";
 
 const navigation = [
   {
@@ -131,7 +135,7 @@ const Header = () => {
               }}
             >
               <IconButton aria-describedby={id} onClick={handleClick}>
-              {notifications?.content?.every((el: { read: boolean; }) => el.read) ? <BellIcon /> : <BellActiveIcon /> }
+                {notifications?.content?.every((el: { read: boolean; }) => el.read) ? <BellIcon /> : <BellActiveIcon />}
               </IconButton>
               <NotificationPopup id={id} open={open} anchorEl={anchorEl}>
                 <Box
@@ -193,6 +197,22 @@ const Header = () => {
                     open={openMenu}
                     setOpen={() => mobileMenuHandler()}
                   >
+                    {((userRoleMobile === 'USER')) && (
+                      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", alignItems: "center", mb: "30px" }}>
+                        <Typography sx={{ color: "#fff", opacity: 0.7, fontSize: '13px', fontWeight: '700', lineHeight: '19px', paddingTop: '7px', textTransform: 'uppercase' }}>MENI</Typography>
+                        <Box sx={{ display: 'flex', mr: '130px' }}>
+                          <ArrowDownIcon />
+                        </Box>
+                      </Box>
+                    )}
+                    {((userRoleMobile === 'ADMINISTRATOR')) && (
+                      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", alignItems: "center", mb: "30px" }}>
+                        <Typography sx={{ color: "#fff", opacity: 0.7, fontSize: '13px', fontWeight: '700', lineHeight: '19px', paddingTop: '7px', textTransform: 'uppercase' }}>Administrator meni</Typography>
+                        <Box sx={{ display: 'flex', mr: '130px' }}>
+                          <ArrowDownIcon />
+                        </Box>
+                      </Box>
+                    )}
                     <Box
                       sx={{
                         display: "flex",
@@ -209,7 +229,7 @@ const Header = () => {
                           alignItems: "center",
                         }}
                       >
-                        <StickyNote2Icon />
+                        <Box sx={{width: "20px"}}><NoteIcon /></Box>
                         <Typography sx={{ color: "white", pl: "10px" }}>
                           Sve Objave
                         </Typography>
@@ -218,6 +238,115 @@ const Header = () => {
                         sx={{ justifyContent: "flex-end" }}
                       />
                     </Box>
+                    {userRoleMobile === "ADMINISTRATOR" && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          mb: "15px",
+                        }}
+                        onClick={() => navigate("/kompanije")}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box sx={{width: "20px"}}><CompanyIcon /></Box>
+                          
+                          <Typography sx={{ color: "white", pl: "10px" }}>
+                            Kompanije
+                          </Typography>
+                        </Box>
+                        <KeyboardArrowRightIcon
+                          sx={{ justifyContent: "flex-end" }}
+                        />
+                      </Box>
+                    )}
+                    {userRoleMobile === "ADMINISTRATOR" && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          mb: "15px",
+                        }}
+                        onClick={() => navigate("/korisnici")}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box sx={{width: "20px"}}><UserIcon /></Box>
+                          <Typography sx={{ color: "white", pl: "10px" }}>
+                            Korisnici
+                          </Typography>
+                        </Box>
+                        <KeyboardArrowRightIcon
+                          sx={{ justifyContent: "flex-end" }}
+                        />
+                      </Box>
+                    )}
+                    {userRoleMobile === "ADMINISTRATOR" && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          mb: "15px",
+                        }}
+                        onClick={() => navigate("/teret")}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box sx={{width: "20px"}}><CategoryIcon /></Box>
+                          <Typography sx={{ color: "white", pl: "10px" }}>
+                            Vrste Tereta
+                          </Typography>
+                        </Box>
+                        <KeyboardArrowRightIcon
+                          sx={{ justifyContent: "flex-end" }}
+                        />
+                      </Box>
+                    )}
+                    {userRoleMobile === "ADMINISTRATOR" && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          mb: "15px",
+                        }}
+                        onClick={() => navigate("/cene")}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box sx={{width: "20px"}}><PriceIcon /></Box>
+                          <Typography sx={{ color: "white", pl: "10px" }}>
+                            Cene
+                          </Typography>
+                        </Box>
+                        <KeyboardArrowRightIcon
+                          sx={{ justifyContent: "flex-end" }}
+                        />
+                      </Box>
+                    )}
                     <Box
                       sx={{
                         display: "flex",
@@ -234,7 +363,7 @@ const Header = () => {
                           alignItems: "center",
                         }}
                       >
-                        <MoveToInboxIcon />
+                        <Box sx={{width: "20px"}}><InboxIcon /></Box>
                         <Typography sx={{ color: "white", pl: "10px" }}>
                           Sanduče
                         </Typography>
@@ -266,11 +395,9 @@ const Header = () => {
                               alignItems: "center",
                             }}
                           >
-                            {nav.name === "Vozila" ? (
-                              <LocalShippingIcon />
-                            ) : null}
+                            {nav.name === "Vozila" ? (userRoleMobile == "ADMINISTRATOR" ? (<Box sx={{width: "20px"}}><CarIcon /></Box>) : (<Box sx={{width: "20px"}}><VehicleIcon /></Box>)) : null}
                             {nav.name === "Vozači" ? (
-                              <SwitchAccountIcon />
+                              <Box sx={{width: "20px"}}><PeopleIcon /></Box>
                             ) : null}
                             <Typography sx={{ color: "white", pl: "10px" }}>
                               {nav.name}
@@ -282,115 +409,8 @@ const Header = () => {
                         </Box>
                       );
                     })}
-                    {userRoleMobile === "ADMINISTRATOR" && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          mb: "15px",
-                        }}
-                        onClick={() => navigate("/kompanije")}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <AccountBoxIcon />
-                          <Typography sx={{ color: "white", pl: "10px" }}>
-                            Kompanije
-                          </Typography>
-                        </Box>
-                        <KeyboardArrowRightIcon
-                          sx={{ justifyContent: "flex-end" }}
-                        />
-                      </Box>
-                    )}
-                    {userRoleMobile === "ADMINISTRATOR" && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          mb: "15px",
-                        }}
-                        onClick={() => navigate("/korisnici")}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <AccountBoxIcon />
-                          <Typography sx={{ color: "white", pl: "10px" }}>
-                            Korisnici
-                          </Typography>
-                        </Box>
-                        <KeyboardArrowRightIcon
-                          sx={{ justifyContent: "flex-end" }}
-                        />
-                      </Box>
-                    )}
-                    {userRoleMobile === "ADMINISTRATOR" && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          mb: "15px",
-                        }}
-                        onClick={() => navigate("/teret")}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <AccountBoxIcon />
-                          <Typography sx={{ color: "white", pl: "10px" }}>
-                            Vrste Tereta
-                          </Typography>
-                        </Box>
-                        <KeyboardArrowRightIcon
-                          sx={{ justifyContent: "flex-end" }}
-                        />
-                      </Box>
-                    )}
-                    {userRoleMobile === "ADMINISTRATOR" && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          mb: "15px",
-                        }}
-                        onClick={() => navigate("/cene")}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <AccountBoxIcon />
-                          <Typography sx={{ color: "white", pl: "10px" }}>
-                            Cene
-                          </Typography>
-                        </Box>
-                        <KeyboardArrowRightIcon
-                          sx={{ justifyContent: "flex-end" }}
-                        />
-                      </Box>
-                    )}
-                    <Box
+                    
+                    {/* <Box
                       sx={{
                         display: "flex",
                         flexDirection: "row",
@@ -414,33 +434,43 @@ const Header = () => {
                       <KeyboardArrowRightIcon
                         sx={{ justifyContent: "flex-end" }}
                       />
-                    </Box>
-                    {(
-                      userCompanyRole?.includes('TRADING') || userCompanyRole?.includes('OWNER')) && (
+                    </Box> */}
+                    {((userRoleMobile === 'USER')) && (
+                      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", alignItems: "center", mb: "28px" }}>
+                        <Typography sx={{ color: "#fff", opacity: 0.7, fontSize: '13px', fontWeight: '700', lineHeight: '19px', paddingTop: '7px', textTransform: 'uppercase' }}>Kontrolni MENI</Typography>
+                        <Box sx={{ display: 'flex', mr: '130px' }}>
+                          <ArrowDownIcon />
+                        </Box>
+                      </Box>
+                    )}
+                    {(userRoleMobile === 'ADMINISTRATOR' || userCompanyRole?.includes('OWNER') || userCompanyRole?.includes('TRADER')) && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          mb: "15px",
+                        }}
+                        onClick={() => navigate("/saradnici")}
+                      >
                         <Box
                           sx={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "space-between",
-                            mb: "15px",
+                            alignItems: "center",
                           }}
-                          onClick={() => navigate("/registracija-tereta")}
                         >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                            }}
-                          >
-                            <AddIcon />
-                            <Typography sx={{ color: "white", pl: "10px" }}>
-                              Dodaj novi teret
-                            </Typography>
-                          </Box>
+                          <HandIcon />
+                          <Typography sx={{ color: "white", pl: "10px" }}>
+                            Saradnici
+                          </Typography>
                         </Box>
-                      )}
-                    <Box>
+                        <KeyboardArrowRightIcon
+                          sx={{ justifyContent: "flex-end" }}
+                        />
+                      </Box>
+                    )}
+                    <Box sx={{marginTop: "auto"}}>
                       <Box
                         sx={{
                           display: "flex",
@@ -509,8 +539,8 @@ const Header = () => {
               onClick={handleClick}
               sx={{ padding: "10px" }}
             >
-              {notifications?.content?.every((el: { read: boolean; }) => el.read) ? <BellIcon /> : <BellActiveIcon /> }
-      
+              {notifications?.content?.every((el: { read: boolean; }) => el.read) ? <BellIcon /> : <BellActiveIcon />}
+
             </IconButton>
             <NotificationPopup id={id} open={open} anchorEl={anchorEl}>
               <Box

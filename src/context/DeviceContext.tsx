@@ -13,6 +13,7 @@ export const Device = createContext({
 export const DeviceContext = ({ children }: any) => {
   const tokens = useSelector((state: RootState) => state?.user?.tokens.token);
   const userRole = useSelector((state: RootState) => state?.user?.user?.companyRoles[0]);
+  const userLoading = useSelector((state: RootState) => state?.user?.loading);
   const deviceWidth = useWindowSize().width as number;
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
@@ -26,9 +27,10 @@ export const DeviceContext = ({ children }: any) => {
   useEffect(() => {
     const storageTokens = localStorage.getItem('token');
     if (tokens) dispatch(userData());
-    if (storageTokens) dispatch(userNotifications({}));
     if (storageTokens) dispatch(userData());
-    if (userRole !== 'TRADING' && tokens) {
+    if (storageTokens) {
+      dispatch(userNotifications({}));
+    } else if (userRole !== 'TRADING' && tokens) {
       dispatch(userNotifications({}));
     }
   }, [tokens, userRole]);

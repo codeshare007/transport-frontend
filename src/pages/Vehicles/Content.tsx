@@ -224,14 +224,6 @@ export const DriversContent = (props: any) => {
               </Typography>
             </Box>
           )}
-      <GlobalSort
-        rowsPerPageOptions={[5, 10, 15]}
-        count={totalElements ? totalElements : 0}
-        page={sort.pageNo}
-        rowsPerPage={sort.pageSize}
-        setPage={(page: number) => setSort({ ...sort, pageNo: page })}
-        setRowsPerPage={(rowsPerPage: number) => setSort({ ...sort, pageSize: rowsPerPage })}
-      />
     </Box>
   );
 };

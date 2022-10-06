@@ -429,7 +429,7 @@ export const MainTheme = ({ children }: any) => {
               overflow: 'hidden',
               ':hover': {
                 backgroundColor: '#fff',
-                border: 'border: 1px solid #E7E7E7',
+                border: '1px solid #E7E7E7',
                 ':before': {
                   content: '""',
                   position: 'absolute',
@@ -464,6 +464,9 @@ export const MainTheme = ({ children }: any) => {
               padding: '20px 10px',
               borderBottom: 'none',
               borderRadius: '4px',
+              ':focus': {
+                outline: 0,
+              }
             },
             virtualScroller: {
               overflowX: 'hidden',
@@ -472,6 +475,7 @@ export const MainTheme = ({ children }: any) => {
               }
             },
             footerContainer: {
+              border: 0,
               '.MuiTablePagination-root': {
                 flex: 1,
               },

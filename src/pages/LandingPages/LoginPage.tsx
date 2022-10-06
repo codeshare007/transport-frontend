@@ -87,7 +87,10 @@ export const LoginPage = () => {
         localStorage.setItem("refreshToken", tokens.refreshToken);
       }
       showSnackBar("Uspešno ste se prijavili!", "success");
-      navigate("/objave");
+      navigate({
+        pathname: '/objave',
+        search: '?loggedIn=1',
+      });
     }
     if (errors !== null) {
       showDialog("Greška", errors);
@@ -97,7 +100,10 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (storageToken && storageRefresh) {
-      navigate("/objave");
+      navigate({
+        pathname: '/objave',
+        search: '?loggedIn=1',
+      });
     }
   }, [storageToken, storageRefresh]);
 

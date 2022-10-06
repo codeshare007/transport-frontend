@@ -56,7 +56,6 @@ export const DriversContent = (props: any) => {
     (state: RootState) => state?.user?.user?.companyRoles
   );
 
-  console.log(allCargo);
   const { status, setAssignDriver, title } = props;
 
   const [cargoFilters, setCargoFilters] = useState<CargoFilters>({
